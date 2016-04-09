@@ -1,0 +1,19 @@
+create procedure alter_class10(IN sroll varchar(20),IN scode varchar(20),IN type varchar(20))
+begin
+	if(type like 'ue') then
+	update class10 set total=0,sauth='YES',ue=0 where roll=sroll and subject_code=scode;
+	update student10 set ue=0 where roll=sroll and subject_code=scode;
+	end if;
+	if(type like 'ia') then
+	update class10 set total=0,sauth='YES',ia=0 where roll=sroll and subject_code=scode;
+	update student10 set ia=0 where roll=sroll and subject_code=scode;	
+	end if;
+	if(type like 'uep') then
+	update class10 set total=0,sauth='YES',uep=0 where roll=sroll and subject_code=scode;
+	update student10 set uep=0 where roll=sroll and subject_code=scode;
+	end if;
+	if(type like 'iap') then
+	update class10 set total=0,sauth='YES',iap=0 where roll=sroll and subject_code=scode;
+	update student10 set iap=0 where roll=sroll and subject_code=scode;
+	end if;
+end /

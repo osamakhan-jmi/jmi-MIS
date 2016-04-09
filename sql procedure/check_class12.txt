@@ -1,0 +1,97 @@
+create procedure check_class12(IN id int,IN scode varchar(20),IN isprv varchar(20))
+begin
+	declare uemo int default 0;
+	declare iamo int default 0;
+	declare uepmo int default 0;
+	declare iapmo int default 0;
+
+	declare iamm int default 0;
+	declare uepmm int default 0;
+	declare iapmm int default 0;
+	
+	declare count int default 0;
+
+	select ue,ia,uep,iap into uemo,iamo,uepmo,iapmo from class12 where sid=id and subject_code=scode;
+	select ia,uep,iap into iamm,uepmm,iapmm from subject12 where code=scode and private=isprv;
+
+			if(uemo=-1) then
+				set count = count +1;
+			end if;
+			if(iamo=-1) then
+				set count = count +1;
+			end if;
+			if(uepmo=-1) then
+				set count = count +1;
+			end if;
+			if(iapmo=-1) then
+				set count = count +1;
+			end if;			
+			
+
+	if(uemo!=0&&iamm!=0&&iamo!=0) then
+		if(uemo=-2) then
+			update class12 set ue=0 where sid=id and subject_code=scode;
+			set uemo =0;
+		end if;
+		if(iamo=-2) then
+			update class12 set ia=0 where sid=id and subject_code=scode;
+			set iamo=0;
+		end if;
+		if(uepmo=-2) then
+			update class12 set uep=0 where sid=id and subject_code=scode;
+			set uepmo =0;
+		end if;
+		if(iapmo=-2) then
+			update class12 set iap=0 where sid=id and subject_code=scode;
+			set iapmo=0;
+		end if;
+		
+		update class12 set total=uemo+iamo+uepmo+count,sauth='NO' where sid=id and subject_code=scode;
+	end if;
+	
+	if(uemo!=0&&uepmm!=0&&uemo!=0) then
+		if(uemo=-2) then
+			update class12 set ue=0 where sid=id and subject_code=scode;
+			set uemo =0;
+		end if;
+		if(iamo=-2) then
+			update class12 set ia=0 where sid=id and subject_code=scode;
+			set iamo=0;
+		end if;
+		if(uepmo=-2) then
+			update class12 set uep=0 where sid=id and subject_code=scode;
+			set uepmo =0;
+		end if;
+		if(iapmo=-2) then
+			update class12 set iap=0 where sid=id and subject_code=scode;
+			set iapmo=0;
+		end if;
+		
+		update class12 set total=uemo+uepmo+iamo+count,sauth='NO' where sid=id and subject_code=scode;
+	end if;
+
+	if(uemo!=0&&iamm=0&&uepmm=0) then
+		
+		if(uemo=-2) then
+			update class12 set ue=0 where sid=id and subject_code=scode;
+			set uemo =0;
+		end if;
+		if(iamo=-2) then
+			update class12 set ia=0 where sid=id and subject_code=scode;
+			set iamo=0;
+		end if;
+		if(uepmo=-2) then
+			update class12 set uep=0 where sid=id and subject_code=scode;
+			set uepmo =0;
+		end if;
+		if(iapmo=-2) then
+			update class12 set iap=0 where sid=id and subject_code=scode;
+			set iapmo=0;
+		end if;
+
+		update class12 set total=uemo+uepmo+iamo+count,sauth='NO' where sid=id and subject_code=scode;
+	end if;
+
+	set count = 0;
+
+end/
